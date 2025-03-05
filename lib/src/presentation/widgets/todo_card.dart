@@ -7,12 +7,13 @@ class TodoCard extends StatelessWidget {
   final Todo todo;
   final VoidCallback onEdit;
   final VoidCallback onDelete;
-
+  final int index;
   const TodoCard({
     super.key,
     required this.todo,
     required this.onEdit,
     required this.onDelete,
+    required this.index,
   });
 
   void _confirmDelete(BuildContext context) {
@@ -45,6 +46,7 @@ class TodoCard extends StatelessWidget {
   Widget _buildCard(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(12),
+      margin: const EdgeInsets.only(bottom: 8, left: 4, right: 4),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
@@ -103,7 +105,7 @@ class TodoCard extends StatelessWidget {
                     onPressed: () => _confirmDelete(context),
                   ),
                   ReorderableDragStartListener(
-                    index: todo.position,
+                    index: index,
                     child: const Icon(
                       FontAwesomeIcons.arrowsUpDownLeftRight,
                       size: 12,

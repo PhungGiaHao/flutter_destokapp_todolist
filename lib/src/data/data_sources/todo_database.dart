@@ -35,10 +35,8 @@ class TodoDatabase {
   }
 
   Future<void> insertTodo(TodoModel todo) async {
-    // Insert the TodoModel into the correct table and postion it based on the status +1
-    final todos = await getTodos();
-    final newPosition = todos.where((t) => t.status == todo.status).length;
-    await _database!.insert('todos', todo.toMap()..['position'] = newPosition);
+    // insert a new todo into the table
+    await _database!.insert('todos', todo.toMap());
   }
 
   Future<void> updateTodo(TodoModel todo) async {

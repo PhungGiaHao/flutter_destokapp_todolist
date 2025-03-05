@@ -55,34 +55,67 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     on<ReorderTodo>((event, emit) async {
       if (state is TodoLoaded) {
         final todos = (state as TodoLoaded).todos;
-        final columnTodos =
-            todos.where((t) => t.status == event.status).toList();
 
-        // Ensure the oldIndex and newIndex are within bounds
+        final columnTodos =
+            todos.where((t) => t.status == event.status).toList()
+              ..sort((a, b) => a.position.compareTo(b.position));
+
+        print(
+          'Reordering from ${event.oldIndex} to ${event.newIndex} in status ${event.status}',
+        );
+
+        print('=== Before Reorder ===');
+        for (var todo in columnTodos) {
+          print(
+            'ID: ${todo.id}, Position: ${todo.position}, Title: ${todo.title}',
+          );
+        }
+
         if (event.oldIndex < 0 ||
             event.oldIndex >= columnTodos.length ||
             event.newIndex < 0 ||
             event.newIndex >= columnTodos.length) {
+          print(
+            'Invalid indices: oldIndex=${event.oldIndex}, newIndex=${event.newIndex}',
+          );
           return;
         }
 
         final movedTodo = columnTodos.removeAt(event.oldIndex);
         columnTodos.insert(event.newIndex, movedTodo);
 
-        // Update positions
+        // Update positions and log each update
         for (int i = 0; i < columnTodos.length; i++) {
           columnTodos[i] = columnTodos[i].copyWith(position: i);
+          print('Updating Todo ID: ${columnTodos[i].id}, New Position: $i');
           await repository.updateTodo(columnTodos[i]);
         }
 
-        // Update the main todos list with the new positions
+        print('=== After Reorder ===');
+        for (var todo in columnTodos) {
+          print(
+            'ID: ${todo.id}, Position: ${todo.position}, Title: ${todo.title}',
+          );
+        }
+
+        // Map updated positions back to all todos
         final updatedTodos =
             todos.map((todo) {
-              final index = columnTodos.indexWhere((t) => t.id == todo.id);
-              return index != -1 ? columnTodos[index] : todo;
+              final found = columnTodos.firstWhere(
+                (t) => t.id == todo.id,
+                orElse: () => todo,
+              );
+              return found;
             }).toList();
 
         emit(TodoLoaded(todos: updatedTodos));
+
+        print('=== State after emitting ===');
+        for (var todo in updatedTodos) {
+          print(
+            'ID: ${todo.id}, Position: ${todo.position}, Title: ${todo.title}',
+          );
+        }
       }
     });
   }
