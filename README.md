@@ -13,52 +13,70 @@ A simple Todo List application built with Flutter.
 
 ### Prerequisites
 
-- [Flutter](https://flutter.dev/docs/get-started/install) installed on your machine
-### Installation
-
-1. Clone the repository:
-
-```sh
-git clone https://github.com/yourusername/todolist.git
-cd todolist
-
-2. Install dependencies:
-
-flutter pub get
-
-3.Run the app:
-
-flutter run
-
-Project Structure
 todolist/
-├── lib/
+├── apps/
+│   └── todolist_app/
+│       ├── lib/
+│       │   ├── main.dart
+│       │   └── app.dart
+│       └── pubspec.yaml         # Chỉ phụ thuộc các packages con
+│
+├── packages/
 │   ├── core/
-│   │   └── utils/
-│   │       └── priority_helper.dart
+│   │   ├── lib/
+│   │   │   └── core/
+│   │   │       └── utils/
+│   │   │           └── priority_helper.dart
+│   │   └── pubspec.yaml
+│   │
 │   ├── domain/
-│   │   └── entities/
-│   │       └── todo.dart
-│   ├── src/
-│   │   ├── presentation/
-│   │   │   ├── bloc/
-│   │   │   │   ├── todo_bloc.dart
-│   │   │   │   ├── todo_event.dart
-│   │   │   │   └── todo_state.dart
-│   │   │   ├── pages/
-│   │   │   │   └── todo_page.dart
-│   │   │   └── widgets/
-│   │   │       ├── status_column.dart
-│   │   │       └── todo_card.dart
-│   │   └── repositories/
-│   │       └── todo_repository.dart
+│   │   ├── lib/
+│   │   │   └── domain/
+│   │   │       └── entities/
+│   │   │           └── todo.dart
+│   │   └── pubspec.yaml
+│   │
+│   ├── data/
+│   │   ├── lib/
+│   │   │   └── data/
+│   │   │       └── repositories/
+│   │   │           └── todo_repository.dart
+│   │   └── pubspec.yaml
+│   │
+│   ├── presentation/
+│   │   ├── lib/
+│   │   │   └── presentation/
+│   │   │       ├── bloc/
+│   │   │       │   ├── todo_bloc.dart
+│   │   │       │   ├── todo_event.dart
+│   │   │       │   └── todo_state.dart
+│   │   │       ├── pages/
+│   │   │       │   └── todo_page.dart
+│   │   │       └── widgets/
+│   │   │           ├── status_column.dart
+│   │   │           └── todo_card.dart
+│   │   └── pubspec.yaml
+│
+├── config/                     # Không phải package nên không có pubspec.yaml
+│   ├── app_config.dart
+│   ├── di.dart
+│   ├── logger_config.dart
+│   └── router.dart
+│
+├── melos.yaml
 ├── analysis_options.yaml
-└── pubspec.yaml
+└── README.md
+Usage
+Add, edit, and delete todos
+To edit a todo, click the pencil icon.
+To delete a todo, click the trash icon.
+To reorder todos, drag the handle icon
+To change status, long press and drag to another column.
 
-Usage : 
+install melos 
 
-- Add, edit, and delete todos
-- To edit a todo, click the pencil icon.
-- To delete a todo, click the trash icon.
-- To reorder todos, drag the handle icon
-- To change status longpress and drag to other column.
+1. Get package with melos : 
+melos bootstrap 
+2 . run project 
+cd apps/ 
+flutter run -d macos

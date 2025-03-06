@@ -39,6 +39,7 @@ dependencies:
   path: ^1.9.1
   font_awesome_flutter: ^10.8.0
   sqflite_common_ffi_web: ^1.0.0
+  melos: ^6.3.2
 
 dev_dependencies:
   flutter_test:

@@ -1,0 +1,8 @@
+name: todolist
+
+packages:
+  - packages/**
+  - apps/**
+
+scripts:
+  bootstrap: melos bootstrap

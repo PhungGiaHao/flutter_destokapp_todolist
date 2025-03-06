@@ -1,0 +1,25 @@
+name: presentation
+publish_to: "none"
+
+environment:
+  sdk: ">=3.2.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  font_awesome_flutter: ^10.8.0
+  flutter_bloc: ^9.1.0
+  cupertino_icons: ^1.0.8
+
+  domain:
+    path: ../domain
+  core:
+    path: ../core
+dev_dependencies:
+  flutter_lints: ^3.0.0
+flutter:
+
+  # The following line ensures that the Material Icons font is
+  # included with your application, so that you can use the icons in
+  # the material Icons class.
+  uses-material-design: true
