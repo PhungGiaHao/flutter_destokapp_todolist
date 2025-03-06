@@ -1,0 +1,20 @@
+name: todolist_app
+description: A simple Todo List application built with Flutter.
+version: 1.0.0
+publish_to: none
+environment:
+  sdk: ^3.7.0
+dependencies:
+  flutter:
+    sdk: flutter
+  core:
+    path: ../packages/core
+  domain:
+    path: ../packages/domain
+  data:
+    path: ../packages/data
+  presentation:
+    path: ../packages/presentation
+  config:
+    path: ../config
+  flutter_bloc: ^9.1.0
